@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color : black;
+}   
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+.game {
+    align-self: center;
+}
