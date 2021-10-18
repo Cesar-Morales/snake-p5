@@ -1,38 +1,45 @@
-let valueX = 0;
-let valueY = 0;
-let directionX = 0;
-let directionY = 0;
-let cubeSize = 40;
-let speedSnake = 2;
+let direction = {"x": 0, "y":0};
+let circleSize = 40;
+let speedSnake = 4;
+let circlePos;
+let snakePos;
 
 //se ejecuta solo una vez
 function setup() {
     //widht,height
     createCanvas(800, 800);
+    circlePos = randomXY();
+    snakePos = randomXY();
 }
 
 //se ejecuta siempre
 function draw() {
-    background(220);
-    drawPlayer(valueX, valueY);
-    circle(200, 200, cubeSize);
+    background(0);
+    drawPlayer(snakePos);
+    circle(circlePos.x, circlePos.y, circleSize/2);
     updatePlayer();
 }
 
-function drawPlayer(x,y){
-    rect(x, y, cubeSize, cubeSize);
+function randomXY(){
+    x = Math.floor(Math.random() * ((width - circleSize) - 0)) + 0;
+    y = Math.floor(Math.random() * ((width - circleSize) - 0)) + 0;
+    return {"x" : x, "y" : y}
+}
+
+function drawPlayer(coor){
+    rect(coor.x, coor.y, circleSize, circleSize);
 }
 
 function updatePlayer(){
-    if(directionX != 0){ 
-        if ((valueX > 0) && (valueX < width - cubeSize)){
-            valueX = valueX + directionX;
+    if(direction.x != 0){ 
+        if ((snakePos.x > 0) && (snakePos.x < width - circleSize)){
+            snakePos.x = snakePos.x + direction.x;
         } 
     }
-    if (directionY != 0){
-        if ((valueY > 0)&&(valueY < height - cubeSize)){
-            valueY = valueY + directionY;
-            directionX = 0;
+    if (direction.y != 0){
+        if ((snakePos.y > 0)&&(snakePos.y < height - circleSize)){
+            snakePos.y = snakePos.y + direction.y;
+            direction.x = 0;
         }
     }
 }
@@ -41,31 +48,31 @@ function updatePlayer(){
 function keyPressed(){
     switch(keyCode){
         case LEFT_ARROW:
-            if (valueX > 0) {
-                valueX -= speedSnake;
-                directionX = -speedSnake;
-                directionY = 0;
+            if (snakePos.x > 0) {
+                snakePos.x -= speedSnake;
+                direction.x = -speedSnake;
+                direction.y = 0;
             }
             break;
         case RIGHT_ARROW:
-            if (valueX < width - cubeSize) {
-                valueX += speedSnake;
-                directionX = speedSnake;
-                directionY = 0;
+            if (snakePos.x < width - circleSize) {
+                snakePos.x += speedSnake;
+                direction.x = speedSnake;
+                direction.y = 0;
             }
             break;
         case UP_ARROW:
-            if (valueY > 0) {
-                valueY -= speedSnake;
-                directionY = -speedSnake;
-                directionX = 0;
+            if (snakePos.y > 0) {
+                snakePos.y -= speedSnake;
+                direction.y = -speedSnake;
+                direction.x = 0;
             }
             break;
         case DOWN_ARROW:
-            if (valueY < height - cubeSize) {
-                valueY += speedSnake;
-                directionY = speedSnake;
-                directionX = 0;
+            if (snakePos.y < height - circleSize) {
+                snakePos.y += speedSnake;
+                direction.y = speedSnake;
+                direction.x = 0;
             }
             break;
     }

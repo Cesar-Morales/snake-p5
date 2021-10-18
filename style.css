@@ -1,12 +1,16 @@
 body {
     display: flex;
     flex-direction: column;
-    background-color : black;
+    background-color : grey;
 }   
 
 h1 {
     text-align: center;
     color: white;
+}
+
+main{
+    margin: auto;
 }
 
 .game {
