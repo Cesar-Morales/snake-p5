@@ -1,6 +1,7 @@
+let bordersSnake = {"xTop":0,"xBottom":0,"yLeft":0,"yRight":0}
 let direction = {"x": 0, "y":0};
 let squareSize = 40;
-let speedSnake = 4;
+let speedSnake = 1;
 let circlePos;
 let snakePos;
 
@@ -15,9 +16,10 @@ function setup() {
 //se ejecuta siempre
 function draw() {
     background(0);
-    drawPlayer(snakePos);
+    drawPlayer(snakePos,bordersSnake);
     circle(circlePos.x, circlePos.y, squareSize/2);
     updatePlayer();
+    collision();
 }
 
 function randomXY(){
@@ -26,17 +28,25 @@ function randomXY(){
     return {"x" : x, "y" : y}
 }
 
+function collision(){
+    if (circlePos.x == snakePos.x){
+        if (circlePos.y <= snakePos.y && circlePos.y <= snakePos.y + squareSize){
+            alert("tocado")
+        }
+    }
+}
+
 function drawPlayer(coor){
     rect(coor.x, coor.y, squareSize, squareSize);
 }
 
 function updatePlayer(){
-    if(direction.x != 0){ 
+    if(direction.x){ 
         if ((snakePos.x > 0) && (snakePos.x < width - squareSize)){
             snakePos.x = snakePos.x + direction.x;
         } 
     }
-    if (direction.y != 0){
+    if (direction.y){
         if ((snakePos.y > 0)&&(snakePos.y < height - squareSize)){
             snakePos.y = snakePos.y + direction.y;
             direction.x = 0;
